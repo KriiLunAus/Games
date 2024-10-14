@@ -1,0 +1,70 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding: 35px 0px;
+}
+
+.hero {
+  padding-bottom: 250px;
+  text-align: center;
+  font-size: 90px;
+  text-transform: uppercase;
+  color: #112b19;
+  text-shadow: 3px 3px 0px #bdff00, -3px -3px 0px #bdff00, -3px 3px 0px #bdff00,
+    3px -3px 0px #bdff00;
+  position: relative;
+}
+.hero h1::before,
+.hero h1::after {
+  content: '\2193';
+  position: absolute;
+  top: 200px;
+}
+
+.hero h1::before {
+  left: 30%;
+}
+.hero h1::after {
+  right: 30%;
+}
+
+/*xs*/
+@media (min-width: 475px) {
+  .container {
+    width: 475px;
+  }
+}
+/*sm*/
+@media (min-width: 640px) {
+  .container {
+    width: 640px;
+  }
+}
+/*md*/
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+}
+/*lg*/
+@media (min-width: 1024px) {
+  .container {
+    width: 1024px;
+  }
+}
+/*xl*/
+@media (min-width: 1280px) {
+  .container {
+    width: 1280px;
+  }
+}
+
+/*2xl*/
+@media (min-width: 1536px) {
+  .container {
+    width: 1536px;
+  }
+}

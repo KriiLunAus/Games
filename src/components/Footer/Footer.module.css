@@ -1,0 +1,10 @@
+.footer {
+  padding-top: 50px;
+  color: #fafafa;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

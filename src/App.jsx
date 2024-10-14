@@ -1,13 +1,18 @@
 import './css/App.css';
-import HeaderComponent from './components/HeaderComponent/HeaderComponent';
-import HeroComponent from './components/HeroComponent/HeroComponent';
+import { Route, Routes } from 'react-router-dom';
+import Navigation from './components/Navigation/Navigation';
+import FlipTheCoinPage from './pages/flipTheCoinPage/flipTheCoinPage';
+import HomePage from './pages/HomePage/HomePage';
 // import GameWindowComponent from './components/HeaderComponent/GameWindowComponent/GameWindowComponent';
 
 function App() {
   return (
     <>
-      <HeaderComponent />
-      <HeroComponent />
+      {/* <Navigation /> */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/flipTheCoin" element={<FlipTheCoinPage />} />
+      </Routes>
     </>
   );
 }
