@@ -1,10 +1,10 @@
 .footer {
-  padding-top: 50px;
-  color: #fafafa;
+  padding: 50px;
+  color: #bdff00;
 }
 
 ul {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 25px;
 }

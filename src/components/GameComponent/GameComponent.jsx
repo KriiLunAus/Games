@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export default function GameComponent(games) {
   const { path, link } = games;
 
-  console.log(path);
   return (
     <div>
       <li>

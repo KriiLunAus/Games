@@ -1,4 +1,4 @@
-import css from './HomePage.module.css';
+// import css from './HomePage.module.css';
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent';
 import HeroComponent from '../../components/HeroComponent/HeroComponent';
 import GameList from '../../components/GameList/GameList';
