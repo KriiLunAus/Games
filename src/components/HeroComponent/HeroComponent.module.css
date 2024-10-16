@@ -8,7 +8,6 @@
 }
 
 .hero {
-  padding-bottom: 250px;
   text-align: center;
   font-size: 90px;
   text-transform: uppercase;
@@ -16,19 +15,6 @@
   text-shadow: 3px 3px 0px #bdff00, -3px -3px 0px #bdff00, -3px 3px 0px #bdff00,
     3px -3px 0px #bdff00;
   position: relative;
-}
-.hero h1::before,
-.hero h1::after {
-  content: '\2193';
-  position: absolute;
-  top: 200px;
-}
-
-.hero h1::before {
-  left: 30%;
-}
-.hero h1::after {
-  right: 30%;
 }
 
 /*xs*/
@@ -48,25 +34,11 @@
   .container {
     width: 768px;
   }
-
-  .hero h1::before {
-    left: 32%;
-  }
-  .hero h1::after {
-    right: 32%;
-  }
 }
 /*lg*/
 @media (min-width: 1024px) {
   .container {
     width: 1024px;
-  }
-
-  .hero h1::before {
-    left: 35%;
-  }
-  .hero h1::after {
-    right: 35%;
   }
 }
 /*xl*/
@@ -74,24 +46,11 @@
   .container {
     width: 1280px;
   }
-  .hero h1::before {
-    left: 40%;
-  }
-  .hero h1::after {
-    right: 40%;
-  }
 }
 
 /*2xl*/
 @media (min-width: 1536px) {
   .container {
     width: 1536px;
-  }
-
-  .hero h1::before {
-    left: 40%;
-  }
-  .hero h1::after {
-    right: 40%;
   }
 }

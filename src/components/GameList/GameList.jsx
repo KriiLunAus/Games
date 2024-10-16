@@ -9,7 +9,7 @@ const games = {
 
 export default function GameList() {
   return (
-    <section>
+    <section className={css.container}>
       <ul className={css.gameList}>
         <GameComponent {...games.flipTheCoin} />
         <GameComponent {...games.flipTheCoin} />
