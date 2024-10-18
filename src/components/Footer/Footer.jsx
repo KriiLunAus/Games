@@ -9,19 +9,19 @@ export default function Footer() {
       <ul>
         <li>
           <a href="https://github.com/KriiLunAus/Games">
-            <img width={50} height={50} src={github} alt="" />
+            <img width={50} height={50} src={github} alt="github picture" />
           </a>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/dmytrobosyk/">
             {' '}
-            <img width={50} height={50} src={linkedin} alt="" />
+            <img width={50} height={50} src={linkedin} alt="linkedin picture" />
           </a>
         </li>
         <li>
           <p>
             {' '}
-            <img width={50} height={50} src={email} alt="" />
+            <img width={50} height={50} src={email} alt="email" />
           </p>
         </li>
         <li></li>
