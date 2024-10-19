@@ -7,20 +7,22 @@ export default function FlipTheCoinPage() {
   function playGame() {
     setResult(Math.random());
   }
-
   return (
     <section className={css.container}>
-      <h1>flip the coin</h1>
+      <h2>flip the coin</h2>
 
-      <div id="js-result">
+      <div id="js-result" className={css.result}>
         {result === null
-          ? 'Chose your side'
+          ? 'Chose your coin side !!!'
           : result < 0.5
           ? 'You win!!'
           : 'You lose!!'}
       </div>
-      <button onClick={playGame}>heads</button>
-      <button onClick={playGame}>tales</button>
+      <div>total</div>
+      <div className={css.buttonWrapper}>
+        <button onClick={playGame}>Heads</button>
+        <button onClick={playGame}>Tales</button>
+      </div>
     </section>
   );
 }
