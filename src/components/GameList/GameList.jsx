@@ -1,9 +1,11 @@
 import css from './GameList.module.css';
 import GameComponent from '../GameComponent/GameComponent';
+import coin from '../../images/flipTheCoin.png';
+
 const games = {
   flipTheCoin: {
     path: '/flipTheCoin',
-    link: 'https://gratisography.com/wp-content/uploads/2024/10/gratisography-halloween-cat-1036x780.jpg',
+    link: coin,
   },
   rockPaperScisors: {
     path: '/rockParerScisors',
