@@ -1,8 +1,9 @@
 import './css/App.css';
 import { Route, Routes } from 'react-router-dom';
-import FlipTheCoinPage from './pages/flipTheCoinPage/flipTheCoinPage';
+import FlipTheCoinPage from './pages/FlipTheCoinPage/FlipTheCoinPage';
 import HomePage from './pages/HomePage/HomePage';
 import HeaderComponent from './components/HeaderComponent/HeaderComponent';
+import RockPaperScisorsPage from './pages/RockPaperScisorsPage/RockPaperScisors';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/flipTheCoin" element={<FlipTheCoinPage />} />
+        <Route path="/rockParerScisors" element={<RockPaperScisorsPage />} />
       </Routes>
     </>
   );

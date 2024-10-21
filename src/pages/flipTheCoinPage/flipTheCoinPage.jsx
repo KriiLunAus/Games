@@ -24,7 +24,7 @@ export default function FlipTheCoinPage() {
   return (
     <section className={css.container}>
       <h2>flip the coin</h2>
-      <Total result={result} />
+      <Total result={result} quantity={result.quantity} />
 
       <div id="js-result" className={css.result}>
         {result.side === 'heads' ? (
