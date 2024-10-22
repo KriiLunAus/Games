@@ -52,7 +52,7 @@ export default function FlipTheCoinPage() {
           }}
           className="js-tails-btn"
         >
-          Tales
+          Tail s
         </button>
       </div>
     </section>
