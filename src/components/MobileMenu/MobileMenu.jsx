@@ -1,5 +1,6 @@
 import css from './MobileMenu.module.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 export default function MobileMenu({ setIsOpen }) {
   return (
     <div
@@ -29,3 +30,7 @@ export default function MobileMenu({ setIsOpen }) {
     </div>
   );
 }
+
+MobileMenu.propTypes = {
+  setIsOpen: PropTypes.func.isRequired, // Validate setIsOpen prop
+};
