@@ -1,17 +1,20 @@
 .link {
   margin: 0 auto;
-  width: 400px;
+  width: 380px;
   height: 200px;
 
   border: 2px solid #112b19;
   border-radius: 20px;
 }
 
-@media (min-width: 1024px) {
-  .container {
-    width: 1024px;
+@media (min-width: 768px) {
+  .link {
+    width: 500px;
+    height: 300px;
   }
+}
 
+@media (min-width: 1024px) {
   .link {
     width: 600px;
     height: 350px;

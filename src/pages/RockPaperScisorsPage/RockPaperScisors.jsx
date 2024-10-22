@@ -3,23 +3,23 @@ import { useState } from 'react';
 import Total from '../../components/Total/Total.jsx';
 import playGame from './rockPaperScisors.js';
 
+import GameResult from '../../components/GameResult/GameResult.jsx';
+
 export default function RockPaperScisorsPage() {
   const [result, setResult] = useState({
     wins: 0,
     loses: 0,
     ties: 0,
     computerMove: '',
+    playerMove: '',
   });
 
-  console.log(result);
   return (
     <section className={css.container}>
       <h2>Rock Paper Scisors</h2>
 
       <Total result={result} quantity={3} />
-
-      <div>{result.computerMove}</div>
-
+      <GameResult result={result} />
       <ul className={css.buttonWrapper}>
         <li>
           <button

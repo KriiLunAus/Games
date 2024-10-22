@@ -1,0 +1,19 @@
+.gameResultWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+.gameResultWrapper div {
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameResultWrapper div h3 {
+  margin-top: 15px;
+  color: #bdff00;
+}

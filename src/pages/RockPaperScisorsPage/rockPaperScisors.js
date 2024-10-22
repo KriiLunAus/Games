@@ -8,6 +8,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'paper') {
       setResult(prevResult => ({
@@ -15,6 +16,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 1,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'scissors') {
       setResult(prevResult => ({
@@ -22,6 +24,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 1,
         computerMove,
+        playerMove,
       }));
     }
   } else if (playerMove === 'paper') {
@@ -31,6 +34,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 1,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'paper') {
       setResult(prevResult => ({
@@ -38,6 +42,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 1,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'scissors') {
       setResult(prevResult => ({
@@ -45,6 +50,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     }
   } else if (playerMove === 'rock') {
@@ -54,6 +60,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 1,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'paper') {
       setResult(prevResult => ({
@@ -61,6 +68,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 0,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     } else if (computerMove === 'scissors') {
       setResult(prevResult => ({
@@ -68,6 +76,7 @@ export default function playGame(playerMove, setResult) {
         wins: prevResult.wins + 1,
         ties: prevResult.ties + 0,
         computerMove,
+        playerMove,
       }));
     }
   }
