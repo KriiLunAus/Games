@@ -1,28 +1,34 @@
-import css from './HeaderComponent.module.css';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import useWidth from '../../hooks/useWidth';
-
+import MobileMenu from '../MobileMenu/MobileMenu.jsx';
+import menu from '../../images/svg/menu.svg';
+import css from './HeaderComponent.module.css';
 const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
 export default function HeaderComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const vw = useWidth();
   return (
     <>
       <div className={css.container}>
         {vw < 1024 && (
           <header className={css.headerMobile}>
-            <button className={css.navBtn}>
-              <svg width={45} height={45}>
-                <rect fill="#bdff00" height="5" width="33" x="6" y="10" />{' '}
-                <rect fill="#bdff00" height="5" width="33" x="6" y="20" />{' '}
-                <rect fill="#bdff00" height="5" width="33" x="6" y="30" />
-              </svg>
+            <button
+              onClick={() => {
+                setIsOpen(true);
+              }}
+              className={css.navBtn}
+            >
+              <img src={menu} alt="menu button" />
             </button>
           </header>
         )}
+        {vw < 1024 && isOpen && <MobileMenu setIsOpen={setIsOpen} />}
 
         {vw >= 1024 && (
           <header className={css.headerDesktop}>

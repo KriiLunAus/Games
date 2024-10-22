@@ -21,6 +21,7 @@ export default function FlipTheCoinPage() {
       side: randomMove,
     }));
   }
+
   return (
     <section className={css.container}>
       <h2>flip the coin</h2>
