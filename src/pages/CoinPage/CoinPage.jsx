@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import css from './FlipTheCoinPage.module.css';
+import css from './CoinPage.module.css';
 import Total from '../../components/Total/Total.jsx';
 import heads from '../../images/svg/coinHeads.svg';
 import tails from '../../images/svg/coinTails.svg';
 
-export default function FlipTheCoinPage() {
+export default function CoinPage() {
   const [result, setResult] = useState({
     wins: 0,
     loses: 0,

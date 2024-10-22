@@ -4,7 +4,7 @@ import coin from '../../images/flipTheCoin.png';
 
 const games = {
   flipTheCoin: {
-    path: '/flipTheCoin',
+    path: '/coinGame',
     link: coin,
   },
   rockPaperScisors: {
