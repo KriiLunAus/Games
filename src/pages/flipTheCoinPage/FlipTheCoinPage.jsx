@@ -1,5 +1,5 @@
-import css from './flipTheCoinPage.module.css';
 import { useState } from 'react';
+import css from './flipTheCoinPage.module.css';
 import Total from '../../components/Total/Total.jsx';
 import heads from '../../images/svg/coinHeads.svg';
 import tails from '../../images/svg/coinTails.svg';

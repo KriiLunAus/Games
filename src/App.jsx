@@ -1,9 +1,9 @@
 import './css/App.css';
 import { Route, Routes } from 'react-router-dom';
 import RockPaperScisorsPage from './pages/RockPaperScisorsPage/RockPaperScisors.jsx';
-import FlipTheCoinPage from './pages/FlipTheCoinPage/FlipTheCoinPage.jsx';
 import HomePage from './pages/HomePage/HomePage';
 import HeaderComponent from './components/HeaderComponent/HeaderComponent';
+import FlipTheCoinPage from './pages/FlipTheCoinPage/FlipTheCoinPage.jsx';
 
 function App() {
   return (
