@@ -3,43 +3,51 @@ import paper from '../../images/svg/paper.svg';
 import scissors from '../../images/svg/scissors.svg';
 import css from './GameResult.module.css';
 export default function GameResult(result) {
+  console.log(result);
+
+  const { computerMove, playerMove } = result.result.moves;
+  const { winner } = result.result;
   return (
     <div className={css.gameResultWrapper}>
       <div>
-        {result.result.computerMove === 'rock' ? (
+        {playerMove === 'rock' ? (
           <img width={100} height={100} src={rock} alt="rock image" />
         ) : (
           ''
         )}
-        {result.result.computerMove === 'paper' ? (
+        {playerMove === 'paper' ? (
           <img width={100} height={100} src={paper} alt="paper image" />
         ) : (
           ''
         )}
-        {result.result.computerMove === 'scissors' ? (
+        {playerMove === 'scissors' ? (
           <img width={100} height={100} src={scissors} alt="scissors image" />
         ) : (
           ''
         )}
-        {result.result.computerMove !== '' && <h3>Computer</h3>}
+        {playerMove !== '' && <h3>Player</h3>}
+      </div>
+      <div className={css.winner}>
+        <p>{winner === 'Machine' || winner === 'Username' ? 'winner:' : ''}</p>
+        <p>{winner}</p>
       </div>
       <div>
-        {result.result.playerMove === 'rock' ? (
+        {computerMove === 'rock' ? (
           <img width={100} height={100} src={rock} alt="rock image" />
         ) : (
           ''
         )}
-        {result.result.playerMove === 'paper' ? (
+        {computerMove === 'paper' ? (
           <img width={100} height={100} src={paper} alt="paper image" />
         ) : (
           ''
         )}
-        {result.result.playerMove === 'scissors' ? (
+        {computerMove === 'scissors' ? (
           <img width={100} height={100} src={scissors} alt="scissors image" />
         ) : (
           ''
         )}
-        {result.result.playerMove !== '' && <h3>Player</h3>}
+        {computerMove !== '' && <h3>Computer</h3>}
       </div>
     </div>
   );

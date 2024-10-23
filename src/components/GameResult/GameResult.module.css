@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 15px;
   padding: 20px;
 }
 
@@ -16,4 +16,16 @@
 .gameResultWrapper div h3 {
   margin-top: 15px;
   color: #bdff00;
+}
+
+.winner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #bdff00;
+  font-size: 20px;
+}
+
+.winner {
+  text-transform: uppercase;
 }

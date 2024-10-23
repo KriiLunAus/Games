@@ -7,11 +7,16 @@ import GameResult from '../../components/GameResult/GameResult.jsx';
 
 export default function RockPaperScisorsPage() {
   const [result, setResult] = useState({
-    wins: 0,
-    loses: 0,
-    ties: 0,
-    computerMove: '',
-    playerMove: '',
+    score: {
+      wins: 0,
+      loses: 0,
+      ties: 0,
+    },
+    moves: {
+      computerMove: '',
+      playerMove: '',
+    },
+    winner: '',
   });
 
   return (

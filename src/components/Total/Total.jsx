@@ -1,7 +1,7 @@
 import css from './Total.module.css';
 
 export default function Total(result) {
-  const { wins, loses, ties } = result.result;
+  const { wins, loses, ties } = result.result.score;
   return (
     <>
       <ul className={css.totalList}>
