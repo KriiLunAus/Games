@@ -44,6 +44,27 @@
   font-size: 20px;
 }
 
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user > button {
+  width: 100px;
+  height: 30px;
+  padding-bottom: 3px;
+
+  background-color: #bdff00;
+  border-radius: 20px;
+  color: #000;
+}
+
+.user > button:active {
+  background-color: #fafafa;
+}
 /*xs*/
 @media (min-width: 475px) {
   .container {

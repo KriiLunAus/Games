@@ -1,7 +1,7 @@
 import css from './MobileMenu.module.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-export default function MobileMenu({ setIsOpen }) {
+export default function MobileMenu({ username, setIsOpen, onLogOut }) {
   return (
     <div
       onClick={() => {
@@ -25,7 +25,17 @@ export default function MobileMenu({ setIsOpen }) {
           Home
         </Link>
 
-        <p>username</p>
+        <div className={css.user}>
+          <p>{username}</p>
+          <button
+            onClick={() => {
+              localStorage.removeItem('username');
+              onLogOut(false);
+            }}
+          >
+            Log Out
+          </button>
+        </div>
       </div>
     </div>
   );

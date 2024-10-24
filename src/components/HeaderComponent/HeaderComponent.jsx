@@ -9,7 +9,8 @@ const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-export default function HeaderComponent() {
+export default function HeaderComponent({ onLogOut }) {
+  const username = localStorage.getItem('username');
   const [isOpen, setIsOpen] = useState(false);
 
   const vw = useWidth();
@@ -28,15 +29,29 @@ export default function HeaderComponent() {
             </button>
           </header>
         )}
-        {vw < 1024 && isOpen && <MobileMenu setIsOpen={setIsOpen} />}
+        {vw < 1024 && isOpen && (
+          <MobileMenu
+            onLogOut={onLogOut}
+            username={username}
+            setIsOpen={setIsOpen}
+          />
+        )}
 
         {vw >= 1024 && (
           <header className={css.headerDesktop}>
             <NavLink to="./" className={buildLinkClass}>
               Home
             </NavLink>
-
-            <p>Username</p>
+            <p className={css.username}>{username}</p>
+            <button
+              className={css.logOutButton}
+              onClick={() => {
+                localStorage.removeItem('username');
+                onLogOut(false);
+              }}
+            >
+              Log Out
+            </button>
           </header>
         )}
       </div>

@@ -1,5 +1,6 @@
 export default function playGame(playerMove, setResult) {
   const computerMove = pickComputerMove();
+  const username = localStorage.getItem('username');
 
   setResult(prevResult => {
     const newScore = { ...prevResult.score };
@@ -12,7 +13,7 @@ export default function playGame(playerMove, setResult) {
         winner = 'Machine';
       } else if (computerMove === 'paper') {
         newScore.wins += 1;
-        winner = 'Username';
+        winner = username;
       } else {
         newScore.ties += 1;
         winner = 'Tie';
@@ -20,7 +21,7 @@ export default function playGame(playerMove, setResult) {
     } else if (playerMove === 'paper') {
       if (computerMove === 'rock') {
         newScore.wins += 1;
-        winner = 'Username';
+        winner = username;
       } else if (computerMove === 'paper') {
         newScore.ties += 1;
         winner = 'Tie';
@@ -37,7 +38,7 @@ export default function playGame(playerMove, setResult) {
         winner = 'Machine';
       } else {
         newScore.wins += 1;
-        winner = 'Username';
+        winner = username;
       }
     }
 

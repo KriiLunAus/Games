@@ -1,0 +1,93 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding: 35px 0px;
+}
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logInForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-block: 100px;
+  width: 80%;
+  height: 500px;
+
+  font-size: 30px;
+
+  color: #bdff00;
+}
+
+.logInForm > input {
+  width: 300px;
+  height: 50px;
+  padding: 10px;
+
+  border: 2px solid #bdff00;
+  border-radius: 10px;
+  outline: none;
+
+  font-size: 25px;
+}
+
+.logInForm > button {
+  width: 140px;
+  height: 45px;
+  padding-bottom: 5px;
+
+  background-color: #bdff00;
+  border-radius: 20px;
+  color: #000;
+}
+
+.logInForm > button:active {
+  background-color: #fafafa;
+}
+
+/*xs*/
+@media (min-width: 475px) {
+  .container {
+    width: 475px;
+  }
+}
+/*sm*/
+@media (min-width: 640px) {
+  .container {
+    width: 640px;
+  }
+}
+/*md*/
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+}
+/*lg*/
+@media (min-width: 1024px) {
+  .container {
+    width: 1024px;
+  }
+}
+/*xl*/
+@media (min-width: 1280px) {
+  .container {
+    width: 1280px;
+  }
+}
+
+/*2xl*/
+@media (min-width: 1536px) {
+  .container {
+    width: 1536px;
+  }
+}

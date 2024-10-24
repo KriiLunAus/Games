@@ -57,7 +57,7 @@ header p {
     padding: 0px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
   }
 
   .link {
@@ -71,6 +71,25 @@ header p {
   .active {
     background-color: #fafafa;
     color: #000000;
+  }
+
+  .username {
+    font-size: 30px;
+  }
+
+  .logOutButton {
+    background-color: #bdff00;
+
+    width: 80px;
+    height: 50px;
+
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .logOutButton:active {
+    background-color: #fafafa;
   }
 }
 /*xl*/

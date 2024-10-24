@@ -60,7 +60,7 @@ export default function CoinPage() {
           }}
           className="js-tails-btn"
         >
-          Tail s
+          Tails
         </button>
       </div>
     </section>

@@ -3,10 +3,10 @@ import paper from '../../images/svg/paper.svg';
 import scissors from '../../images/svg/scissors.svg';
 import css from './GameResult.module.css';
 export default function GameResult(result) {
-  console.log(result);
-
   const { computerMove, playerMove } = result.result.moves;
   const { winner } = result.result;
+  const username = localStorage.getItem('username');
+
   return (
     <div className={css.gameResultWrapper}>
       <div>
@@ -28,8 +28,8 @@ export default function GameResult(result) {
         {playerMove !== '' && <h3>Player</h3>}
       </div>
       <div className={css.winner}>
-        <p>{winner === 'Machine' || winner === 'Username' ? 'winner:' : ''}</p>
-        <p>{winner}</p>
+        <p>{winner === 'Machine' || winner === username ? 'winner:' : ''}</p>
+        <p style={{ color: 'white' }}>{winner}</p>
       </div>
       <div>
         {computerMove === 'rock' ? (
