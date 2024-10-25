@@ -1,13 +1,14 @@
 import './css/App.css';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import RockPaperScisorsPage from './pages/RockPaperScisorsPage/RockPaperScisors.jsx';
 import HomePage from './pages/HomePage/HomePage';
 import HeaderComponent from './components/HeaderComponent/HeaderComponent';
 import CoinPage from './pages/CoinPage/CoinPage.jsx';
 import LogInPage from './pages/LogInPage/LogInPage.jsx';
-import { useState } from 'react';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 
-function App() {
+export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const username = localStorage.getItem('username');
   return (
@@ -25,11 +26,10 @@ function App() {
               path="/rockParerScisors"
               element={<RockPaperScisorsPage />}
             />
+            <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </div>
       )}
     </>
   );
 }
-
-export default App;

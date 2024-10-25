@@ -1,4 +1,4 @@
-import css from './LogifnPage.module.css';
+import css from './LoginPage.module.css';
 export default function LogInPage({ onLogin }) {
   function handleSubmit(evt) {
     evt.preventDefault();
