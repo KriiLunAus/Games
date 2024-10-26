@@ -1,6 +1,7 @@
 import css from './GameList.module.css';
 import GameComponent from '../GameComponent/GameComponent';
 import coin from '../../images/flipTheCoin.png';
+import rockPaperScisors from '../../images/rockPaperScisors.png';
 
 const games = {
   flipTheCoin: {
@@ -9,7 +10,7 @@ const games = {
   },
   rockPaperScisors: {
     path: '/rockParerScisors',
-    link: 'https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg',
+    link: rockPaperScisors,
   },
   seaBattle: {
     path: '/seaBattle',

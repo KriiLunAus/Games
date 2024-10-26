@@ -7,6 +7,7 @@ import HeaderComponent from './components/HeaderComponent/HeaderComponent';
 import CoinPage from './pages/CoinPage/CoinPage.jsx';
 import LogInPage from './pages/LogInPage/LogInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
+import SeaBattlePage from './pages/SeaBattlePage/SeaBattlePage.jsx';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,6 +27,7 @@ export default function App() {
               path="/rockParerScisors"
               element={<RockPaperScisorsPage />}
             />
+            <Route path="/seaBattle" element={<SeaBattlePage />} />
             <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </div>
