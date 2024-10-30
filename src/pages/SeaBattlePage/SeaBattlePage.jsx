@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import css from './SeaBattlePage.module.css';
 import Board from '../../components/Board/Board';
-
+import { ships } from '../../utilits/Ships';
 export default function SeaBattlePage() {
   const [activeCells, setActiveCells] = useState([]);
-
+  console.log(ships);
   const handleCellClick = cellId => {
     setActiveCells(prev =>
       prev.includes(cellId)
