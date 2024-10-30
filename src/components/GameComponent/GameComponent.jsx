@@ -10,9 +10,6 @@ export default function GameComponent(games) {
         <Link
           style={{
             backgroundImage: `url(${link})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: '700px',
           }}
           className={css.link}
           to={path}

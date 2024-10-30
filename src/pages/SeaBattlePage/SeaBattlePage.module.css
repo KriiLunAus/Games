@@ -3,7 +3,13 @@
   height: 60vh;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 40px;
+}
+
+.seaBattleHeader {
+  margin-top: 200px;
+  font-size: 60px;
 }
