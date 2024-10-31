@@ -4,6 +4,7 @@ import Board from '../../components/Board/Board';
 import { ships } from '../../utilits/Ships';
 export default function SeaBattlePage() {
   const [activeCells, setActiveCells] = useState([]);
+
   console.log(ships);
   const handleCellClick = cellId => {
     setActiveCells(prev =>
@@ -20,10 +21,10 @@ export default function SeaBattlePage() {
         <Board onCellClick={handleCellClick} activeCells={activeCells} />
         <h2>Player Board</h2>
       </div>
-      <div>
+      {/* <div>
         <Board onCellClick={handleCellClick} activeCells={activeCells} />
         <h2>Enemy Board</h2>
-      </div>
+      </div> */}
     </div>
   );
 }

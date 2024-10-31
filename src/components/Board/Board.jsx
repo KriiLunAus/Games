@@ -1,11 +1,11 @@
 import css from './Board.module.css';
 import clsx from 'clsx';
+import { ships } from '../../utilits/Ships.js';
 
 export default function Board({ onCellClick, activeCells }) {
   const renderCells = () => {
     const cells = [];
 
-    console.log(activeCells);
     for (let i = 0; i < 100; i++) {
       cells.push(
         <Cell
@@ -18,7 +18,12 @@ export default function Board({ onCellClick, activeCells }) {
     }
     return cells;
   };
-  return <div className={css.board}>{renderCells()}</div>;
+  return (
+    <>
+      <div className={css.board}>{renderCells()}</div>
+      <div>{renderShips(ships)}</div>
+    </>
+  );
 }
 
 function Cell({ onClick, id, isActive }) {
@@ -33,4 +38,18 @@ function Cell({ onClick, id, isActive }) {
   );
 }
 
-// 1(4 l), 2(3 l), 3(2 l), 4(1 l)
+function renderShips(ships) {
+  const shipsArr = [];
+  ships.forEach(ship => {
+    shipsArr.push(
+      <div
+        style={{
+          width: '30px',
+          height: `${ship.shipHeight * 30}px `,
+          backgroundColor: 'red',
+        }}
+      ></div>
+    );
+  });
+  return shipsArr;
+}
