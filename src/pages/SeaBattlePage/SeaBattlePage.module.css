@@ -13,3 +13,22 @@
   margin-top: 200px;
   font-size: 60px;
 }
+.placeFleet,
+.startBtn {
+  margin-top: 40px;
+  width: 200px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  background-color: #bdff00;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.startBtn {
+  width: 200px;
+}
+
+.startBtn:active {
+  background-color: #fff;
+}

@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import css from './Board.module.css';
 import clsx from 'clsx';
 import { ships } from '../../utilits/Ships.js';
 
-export default function Board({ onCellClick, activeCells }) {
+export default function Board({ onCellClick, activeCells, isStartTheGame }) {
   const gridSize = 10;
   const [grid, setGrid] = useState(
     Array.from({ length: gridSize }, () => Array(gridSize).fill(0))
   );
-
-  // useEffect(() => {
-  //   placeShips();
-  // }, []);
 
   const placeShips = () => {
     const newGrid = Array.from({ length: gridSize }, () =>
@@ -34,7 +30,7 @@ export default function Board({ onCellClick, activeCells }) {
     return newGrid;
   };
 
-  const renderCells = () => {
+  function renderCells() {
     const cells = [];
     for (let row = 0; row < gridSize; row++) {
       for (let col = 0; col < gridSize; col++) {
@@ -52,20 +48,21 @@ export default function Board({ onCellClick, activeCells }) {
       }
     }
     return cells;
-  };
+  }
 
   return (
     <>
       <div className={css.board}>{renderCells()}</div>
-      <button
-        onClick={() => {
-          setGrid(placeShips());
-        }}
-        style={{ backgroundColor: 'yellow', margin: '10px' }}
-      >
-        Reset the board
-      </button>
-      ;
+      {!isStartTheGame && (
+        <button
+          onClick={() => {
+            setGrid(placeShips());
+          }}
+          className={css.placeShipsBtn}
+        >
+          Place ships
+        </button>
+      )}
     </>
   );
 }
