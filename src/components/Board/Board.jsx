@@ -9,9 +9,9 @@ export default function Board({ onCellClick, activeCells }) {
     Array.from({ length: gridSize }, () => Array(gridSize).fill(0))
   );
 
-  useEffect(() => {
-    placeShips();
-  }, []);
+  // useEffect(() => {
+  //   placeShips();
+  // }, []);
 
   const placeShips = () => {
     const newGrid = Array.from({ length: gridSize }, () =>
@@ -31,7 +31,7 @@ export default function Board({ onCellClick, activeCells }) {
       }
     });
 
-    setGrid(newGrid);
+    return newGrid;
   };
 
   const renderCells = () => {
@@ -54,7 +54,20 @@ export default function Board({ onCellClick, activeCells }) {
     return cells;
   };
 
-  return <div className={css.board}>{renderCells()}</div>;
+  return (
+    <>
+      <div className={css.board}>{renderCells()}</div>
+      <button
+        onClick={() => {
+          setGrid(placeShips());
+        }}
+        style={{ backgroundColor: 'yellow', margin: '10px' }}
+      >
+        Reset the board
+      </button>
+      ;
+    </>
+  );
 }
 
 function Cell({ onClick, id, isActive, isShipPart }) {

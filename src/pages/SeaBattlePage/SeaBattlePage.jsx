@@ -19,10 +19,10 @@ export default function SeaBattlePage() {
         <Board onCellClick={handleCellClick} activeCells={activeCells} />
         <h2>Player Board</h2>
       </div>
-      {/* <div>
+      <div>
         <Board onCellClick={handleCellClick} activeCells={activeCells} />
         <h2>Enemy Board</h2>
-      </div> */}
+      </div>
     </div>
   );
 }
