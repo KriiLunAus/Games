@@ -1,3 +1,6 @@
+root {
+  --color: #bdff00;
+}
 * {
   margin: 0;
   padding: 0;
