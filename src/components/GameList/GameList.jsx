@@ -2,6 +2,7 @@ import css from './GameList.module.css';
 import GameComponent from '../GameComponent/GameComponent';
 import coin from '../../images/flipTheCoin.png';
 import rockPaperScisors from '../../images/rockPaperScisors.png';
+import board from '../../images/sea-battle.png';
 
 const games = {
   flipTheCoin: {
@@ -14,7 +15,7 @@ const games = {
   },
   seaBattle: {
     path: '/seaBattle',
-    link: 'https://images.pexels.com/photos/5104118/pexels-photo-5104118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    link: board,
   },
   cardGame: {
     path: '/cardGame',
