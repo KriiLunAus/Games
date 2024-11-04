@@ -19,6 +19,10 @@
 .ship {
   background-color: red;
 }
+
+.enemy {
+  background-color: green;
+}
 .placeShipsBtn {
   margin-top: 40px;
   width: 300px;

@@ -5,6 +5,8 @@ export default function SeaBattlePage() {
   const [activeCells, setActiveCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
+  const [isOpponent, setIsOpponent] = useState(true);
+
   const handleCellClick = cellId => {
     setActiveCells(prev =>
       prev.includes(cellId)
@@ -39,7 +41,7 @@ export default function SeaBattlePage() {
           }}
         >
           {!isStartTheGame && (
-            <h2 style={{ marginBottom: '40px' }}>Place your fleet</h2>
+            <h3 className={css.placeFleetHeader}>Place your fleet</h3>
           )}
           <Board
             onCellClick={handleCellClick}
@@ -56,7 +58,7 @@ export default function SeaBattlePage() {
               Start
             </button>
           )}
-          {isStartTheGame && <h2>Player Board</h2>}
+          {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
         </div>
       )}
       {isStartTheGame && (
@@ -65,8 +67,9 @@ export default function SeaBattlePage() {
             onCellClick={handleCellClick}
             activeCells={activeCells}
             isStartTheGame={isStartTheGame}
+            isOpponent={isOpponent}
           />
-          <h2>Enemy Board</h2>
+          <h2 className={css.playerHeader}>Enemy Board</h2>
         </div>
       )}
     </div>

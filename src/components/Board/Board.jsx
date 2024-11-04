@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './Board.module.css';
 import clsx from 'clsx';
 import { ships } from '../../utilits/Ships.js';
 
-export default function Board({ onCellClick, activeCells, isStartTheGame }) {
+export default function Board({
+  onCellClick,
+  activeCells,
+  isStartTheGame,
+  isOpponent,
+}) {
   const gridSize = 10;
   const [grid, setGrid] = useState(
     Array.from({ length: gridSize }, () => Array(gridSize).fill(0))
   );
+
+  useEffect(() => {
+    if (isOpponent) {
+      setGrid(placeShips());
+    }
+  }, [isOpponent]);
 
   const placeShips = () => {
     const newGrid = Array.from({ length: gridSize }, () =>
@@ -43,6 +54,7 @@ export default function Board({ onCellClick, activeCells, isStartTheGame }) {
             onClick={onCellClick}
             isActive={activeCells.includes(id)}
             isShipPart={isShipPart}
+            isOpponent={isOpponent}
           />
         );
       }
@@ -67,10 +79,15 @@ export default function Board({ onCellClick, activeCells, isStartTheGame }) {
   );
 }
 
-function Cell({ onClick, id, isActive, isShipPart }) {
+function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
   return (
     <div
-      className={clsx(css.cell, isActive && css.active, isShipPart && css.ship)}
+      className={clsx(
+        css.cell,
+        !isOpponent && isShipPart && css.ship,
+        isOpponent && isShipPart && css.enemy,
+        isOpponent && isActive && css.active
+      )}
       id={id}
       onClick={() => onClick(id)}
     >

@@ -4,14 +4,13 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 40px;
 }
 
 .seaBattleHeader {
-  margin-top: 200px;
   font-size: 60px;
+  color: #bdff00;
 }
 .placeFleet,
 .startBtn {
@@ -31,4 +30,16 @@
 
 .startBtn:active {
   background-color: #fff;
+}
+
+.playerHeader,
+.placeFleetHeader {
+  margin: 10px;
+  font-size: 40px;
+  color: #bdff00;
+  text-align: center;
+}
+
+.placeFleetHeader {
+  margin-bottom: 40px;
 }
