@@ -7,18 +7,19 @@ export default function Board({
   onCellClick,
   activeCells,
   isStartTheGame,
-  isOpponent,
+  isEnemy,
+  checkIfHit,
+  turn,
 }) {
   const gridSize = 10;
   const [grid, setGrid] = useState(
     Array.from({ length: gridSize }, () => Array(gridSize).fill(0))
   );
-
   useEffect(() => {
-    if (isOpponent) {
+    if (isEnemy) {
       setGrid(placeShips());
     }
-  }, [isOpponent, isStartTheGame]);
+  }, [isEnemy, isStartTheGame]);
 
   const placeShips = () => {
     const newGrid = Array.from({ length: gridSize }, () =>
@@ -51,10 +52,13 @@ export default function Board({
           <Cell
             key={id}
             id={id}
-            onClick={cellId => onCellClick(cellId, isOpponent)}
+            onClick={cellId => {
+              onCellClick(cellId, isEnemy);
+            }}
             isActive={activeCells.includes(id)}
             isShipPart={isShipPart}
-            isOpponent={isOpponent}
+            isEnemy={isEnemy}
+            turn={turn}
           />
         );
       }
@@ -79,19 +83,19 @@ export default function Board({
   );
 }
 
-function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
+function Cell({ onClick, id, isActive, isShipPart, isEnemy }) {
   return (
     <div
       className={clsx(
         css.cell,
-        !isOpponent && isActive && css.active,
-        !isOpponent && isShipPart && css.ship,
-        isOpponent && isShipPart && isActive && css.enemy,
-        isOpponent && isActive && css.active
+        !isEnemy && isActive && css.active,
+        !isEnemy && isShipPart && css.playerShip,
+        isEnemy && isShipPart && css.enemyShip,
+        isEnemy && isActive && css.active
       )}
       id={id}
       onClick={() => {
-        if (isOpponent || !isOpponent) {
+        if (isEnemy || !isEnemy) {
           onClick(id);
         }
       }}
@@ -99,8 +103,8 @@ function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
       {}
       <div
         className={clsx(
-          isOpponent && isShipPart && isActive && css.dead,
-          !isOpponent && isShipPart && isActive && css.dead
+          isEnemy && isShipPart && isActive && css.dead,
+          !isEnemy && isShipPart && isActive && css.dead
         )}
       ></div>
     </div>

@@ -6,20 +6,23 @@ export default function SeaBattlePage() {
   const [enemyActiveCells, setEnemyActiveCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
+  const [turn, setTurn] = useState('player');
 
   const handleCellClick = (cellId, isOpponent) => {
-    if (isOpponent) {
+    if (isOpponent && turn === 'player') {
       setEnemyActiveCells(prev =>
         prev.includes(cellId)
           ? prev.filter(id => id !== cellId)
           : [...prev, cellId]
       );
-    } else {
+      setTurn('enemy');
+    } else if (!isOpponent && turn === 'enemy') {
       setPlayerActiveCells(prev =>
         prev.includes(cellId)
           ? prev.filter(id => id !== cellId)
           : [...prev, cellId]
       );
+      setTurn('player');
     }
   };
 
@@ -55,7 +58,8 @@ export default function SeaBattlePage() {
             onCellClick={handleCellClick}
             activeCells={playerActiveCells}
             isStartTheGame={isStartTheGame}
-            isOpponent={false}
+            isEnemy={false}
+            turn={turn}
           />
           {!isStartTheGame && (
             <button
@@ -76,7 +80,8 @@ export default function SeaBattlePage() {
             onCellClick={handleCellClick}
             activeCells={enemyActiveCells}
             isStartTheGame={isStartTheGame}
-            isOpponent={true}
+            isEnemy={true}
+            turn={turn}
           />
           <h2 className={css.playerHeader}>Enemy Board</h2>
         </div>

@@ -12,13 +12,16 @@
   border: 1px solid #333;
   cursor: pointer;
 }
-
 .active {
   background-color: lightgrey;
 }
 
-.ship {
+.playerShip {
   background-color: green;
+}
+
+.enemyShip {
+  background-color: red;
 }
 
 .dead {
@@ -35,9 +38,6 @@
   transform: translate(-50%, -50%);
 }
 
-.enemy {
-  background-color: red;
-}
 .placeShipsBtn {
   margin-top: 40px;
   width: 300px;
