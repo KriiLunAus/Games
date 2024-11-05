@@ -18,7 +18,7 @@ export default function Board({
     if (isOpponent) {
       setGrid(placeShips());
     }
-  }, [isOpponent]);
+  }, [isOpponent, isStartTheGame]);
 
   const placeShips = () => {
     const newGrid = Array.from({ length: gridSize }, () =>
@@ -86,7 +86,7 @@ function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
         css.cell,
         !isOpponent && isActive && css.active,
         !isOpponent && isShipPart && css.ship,
-        isOpponent && isShipPart && css.enemy,
+        isOpponent && isShipPart && isActive && css.enemy,
         isOpponent && isActive && css.active
       )}
       id={id}
@@ -97,6 +97,12 @@ function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
       }}
     >
       {}
+      <div
+        className={clsx(
+          isOpponent && isShipPart && isActive && css.dead,
+          !isOpponent && isShipPart && isActive && css.dead
+        )}
+      ></div>
     </div>
   );
 }

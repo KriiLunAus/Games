@@ -5,6 +5,7 @@
 }
 
 .cell {
+  position: relative;
   width: 30px;
   height: 30px;
   background-color: #1e90ff;
@@ -17,11 +18,25 @@
 }
 
 .ship {
-  background-color: red;
+  background-color: green;
+}
+
+.dead {
+  width: 30px;
+  height: 30px;
+}
+
+.dead::after {
+  position: absolute;
+  content: '\1F7AD';
+  font-size: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .enemy {
-  background-color: green;
+  background-color: red;
 }
 .placeShipsBtn {
   margin-top: 40px;
