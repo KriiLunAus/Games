@@ -43,3 +43,8 @@
 .placeFleetHeader {
   margin-bottom: 40px;
 }
+
+.message {
+  color: #bdff00;
+  font-size: 20px;
+}

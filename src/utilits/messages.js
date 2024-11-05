@@ -1,0 +1,15 @@
+export const messages = {
+  your_turn: 'Your turn!',
+  won: 'You won!!',
+  lost: 'Tough luck!! Computer won!',
+  hit: 'Boom, enemy ship is hit',
+  miss: 'Oops, nothing there',
+  already_hit: 'This cell is already hit. Try a new target',
+  computer: 'Computer thinking...',
+  computer_hit: 'Computer hit your ship',
+  computer_miss: 'Computer missed',
+  submarine: 'A submarine is sunk!',
+  destroyer: 'A destroyer is sunk!',
+  cruiser: 'A cruiser is sunk!',
+  career: 'A career is sunk!',
+};

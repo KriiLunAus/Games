@@ -8,7 +8,6 @@ export default function Board({
   activeCells,
   isStartTheGame,
   isEnemy,
-  checkIfHit,
   turn,
 }) {
   const gridSize = 10;

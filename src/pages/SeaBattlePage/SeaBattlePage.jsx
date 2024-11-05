@@ -1,26 +1,32 @@
 import { useState } from 'react';
 import css from './SeaBattlePage.module.css';
 import Board from '../../components/Board/Board';
+import { messages } from '../../utilits/messages';
 export default function SeaBattlePage() {
   const [playerActiveCells, setPlayerActiveCells] = useState([]);
   const [enemyActiveCells, setEnemyActiveCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
   const [turn, setTurn] = useState('player');
+  const [alreadyHit, setAlreadyHit] = useState(false);
 
   const handleCellClick = (cellId, isOpponent) => {
     if (isOpponent && turn === 'player') {
+      if (enemyActiveCells.includes(cellId)) {
+        setAlreadyHit(true);
+        return;
+      }
       setEnemyActiveCells(prev =>
-        prev.includes(cellId)
-          ? prev.filter(id => id !== cellId)
-          : [...prev, cellId]
+        prev.includes(cellId) ? prev : [...prev, cellId]
       );
+      setAlreadyHit(false);
       setTurn('enemy');
     } else if (!isOpponent && turn === 'enemy') {
+      if (playerActiveCells.includes(cellId)) {
+        return;
+      }
       setPlayerActiveCells(prev =>
-        prev.includes(cellId)
-          ? prev.filter(id => id !== cellId)
-          : [...prev, cellId]
+        prev.includes(cellId) ? prev : [...prev, cellId]
       );
       setTurn('player');
     }
@@ -54,6 +60,7 @@ export default function SeaBattlePage() {
           {!isStartTheGame && (
             <h3 className={css.placeFleetHeader}>Place your fleet</h3>
           )}
+          {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
           <Board
             onCellClick={handleCellClick}
             activeCells={playerActiveCells}
@@ -71,9 +78,16 @@ export default function SeaBattlePage() {
               Start
             </button>
           )}
-          {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
         </div>
       )}
+      {alreadyHit && <div className={css.message}>{messages.already_hit}</div>}
+      {isStartTheGame && turn === 'player' && (
+        <div className={css.message}>{messages.your_turn}</div>
+      )}
+      {turn === 'enemy' && (
+        <div className={css.message}>{messages.computer}</div>
+      )}
+
       {isStartTheGame && (
         <div>
           <Board
