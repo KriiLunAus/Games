@@ -2,17 +2,25 @@ import { useState } from 'react';
 import css from './SeaBattlePage.module.css';
 import Board from '../../components/Board/Board';
 export default function SeaBattlePage() {
-  const [activeCells, setActiveCells] = useState([]);
+  const [playerActiveCells, setPlayerActiveCells] = useState([]);
+  const [enemyActiveCells, setEnemyActiveCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
-  const [isOpponent, setIsOpponent] = useState(true);
 
-  const handleCellClick = cellId => {
-    setActiveCells(prev =>
-      prev.includes(cellId)
-        ? prev.filter(id => id !== cellId)
-        : [...prev, cellId]
-    );
+  const handleCellClick = (cellId, isOpponent) => {
+    if (isOpponent) {
+      setEnemyActiveCells(prev =>
+        prev.includes(cellId)
+          ? prev.filter(id => id !== cellId)
+          : [...prev, cellId]
+      );
+    } else {
+      setPlayerActiveCells(prev =>
+        prev.includes(cellId)
+          ? prev.filter(id => id !== cellId)
+          : [...prev, cellId]
+      );
+    }
   };
 
   return (
@@ -45,8 +53,9 @@ export default function SeaBattlePage() {
           )}
           <Board
             onCellClick={handleCellClick}
-            activeCells={activeCells}
+            activeCells={playerActiveCells}
             isStartTheGame={isStartTheGame}
+            isOpponent={false}
           />
           {!isStartTheGame && (
             <button
@@ -65,9 +74,9 @@ export default function SeaBattlePage() {
         <div>
           <Board
             onCellClick={handleCellClick}
-            activeCells={activeCells}
+            activeCells={enemyActiveCells}
             isStartTheGame={isStartTheGame}
-            isOpponent={isOpponent}
+            isOpponent={true}
           />
           <h2 className={css.playerHeader}>Enemy Board</h2>
         </div>

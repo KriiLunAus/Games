@@ -12,6 +12,7 @@ import SeaBattlePage from './pages/SeaBattlePage/SeaBattlePage.jsx';
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const username = localStorage.getItem('username');
+  console.log(!username);
   return (
     <>
       {!isLoggedIn && !username && <LogInPage onLogin={setIsLoggedIn} />}

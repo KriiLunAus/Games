@@ -51,7 +51,7 @@ export default function Board({
           <Cell
             key={id}
             id={id}
-            onClick={onCellClick}
+            onClick={cellId => onCellClick(cellId, isOpponent)}
             isActive={activeCells.includes(id)}
             isShipPart={isShipPart}
             isOpponent={isOpponent}
@@ -84,12 +84,17 @@ function Cell({ onClick, id, isActive, isShipPart, isOpponent }) {
     <div
       className={clsx(
         css.cell,
+        !isOpponent && isActive && css.active,
         !isOpponent && isShipPart && css.ship,
         isOpponent && isShipPart && css.enemy,
         isOpponent && isActive && css.active
       )}
       id={id}
-      onClick={() => onClick(id)}
+      onClick={() => {
+        if (isOpponent || !isOpponent) {
+          onClick(id);
+        }
+      }}
     >
       {}
     </div>
