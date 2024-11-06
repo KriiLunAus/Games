@@ -1,36 +1,56 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './SeaBattlePage.module.css';
 import Board from '../../components/Board/Board';
 import { messages } from '../../utilits/messages';
 export default function SeaBattlePage() {
-  const [playerActiveCells, setPlayerActiveCells] = useState([]);
-  const [enemyActiveCells, setEnemyActiveCells] = useState([]);
+  const [playerBoardActiveCells, setPlayerBoardActiveCells] = useState([]);
+  const [enemyBoardActiveCells, setEnemyBoardActiveCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
   const [turn, setTurn] = useState('player');
   const [alreadyHit, setAlreadyHit] = useState(false);
 
-  const handleCellClick = (cellId, isOpponent) => {
-    if (isOpponent && turn === 'player') {
-      if (enemyActiveCells.includes(cellId)) {
+  const handleCellClick = (cellId, isEnemy) => {
+    if (isEnemy && turn === 'player') {
+      if (enemyBoardActiveCells.includes(cellId)) {
         setAlreadyHit(true);
         return;
       }
-      setEnemyActiveCells(prev =>
+      setEnemyBoardActiveCells(prev =>
         prev.includes(cellId) ? prev : [...prev, cellId]
       );
       setAlreadyHit(false);
       setTurn('enemy');
-    } else if (!isOpponent && turn === 'enemy') {
-      if (playerActiveCells.includes(cellId)) {
+    } else if (!isEnemy && turn === 'enemy') {
+      if (playerBoardActiveCells.includes(cellId)) {
         return;
       }
-      setPlayerActiveCells(prev =>
+      setPlayerBoardActiveCells(prev =>
         prev.includes(cellId) ? prev : [...prev, cellId]
       );
       setTurn('player');
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (turn === 'enemy') {
+        const randomCellId = getRandomCellId();
+        if (!playerBoardActiveCells.includes(randomCellId)) {
+          setPlayerBoardActiveCells(prev => [...prev, randomCellId]);
+        }
+        setTurn('player');
+      }
+
+      function getRandomCellId() {
+        let randomId;
+        do {
+          randomId = Math.floor(Math.random() * 100);
+        } while (playerBoardActiveCells.includes(randomId));
+        return randomId;
+      }
+    }, 1500);
+  }, [turn, playerBoardActiveCells]);
 
   return (
     <div className={css.boardsWrapper}>
@@ -63,7 +83,7 @@ export default function SeaBattlePage() {
           {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
           <Board
             onCellClick={handleCellClick}
-            activeCells={playerActiveCells}
+            activeCells={playerBoardActiveCells}
             isStartTheGame={isStartTheGame}
             isEnemy={false}
             turn={turn}
@@ -92,7 +112,7 @@ export default function SeaBattlePage() {
         <div>
           <Board
             onCellClick={handleCellClick}
-            activeCells={enemyActiveCells}
+            activeCells={enemyBoardActiveCells}
             isStartTheGame={isStartTheGame}
             isEnemy={true}
             turn={turn}

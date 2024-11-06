@@ -8,12 +8,12 @@ export default function Board({
   activeCells,
   isStartTheGame,
   isEnemy,
-  turn,
 }) {
   const gridSize = 10;
   const [grid, setGrid] = useState(
     Array.from({ length: gridSize }, () => Array(gridSize).fill(0))
   );
+
   useEffect(() => {
     if (isEnemy) {
       setGrid(placeShips());
@@ -57,7 +57,6 @@ export default function Board({
             isActive={activeCells.includes(id)}
             isShipPart={isShipPart}
             isEnemy={isEnemy}
-            turn={turn}
           />
         );
       }
@@ -89,12 +88,12 @@ function Cell({ onClick, id, isActive, isShipPart, isEnemy }) {
         css.cell,
         !isEnemy && isActive && css.active,
         !isEnemy && isShipPart && css.playerShip,
-        isEnemy && isShipPart && css.enemyShip,
+        isEnemy && isShipPart && isActive && css.enemyShip,
         isEnemy && isActive && css.active
       )}
       id={id}
       onClick={() => {
-        if (isEnemy || !isEnemy) {
+        if (isEnemy) {
           onClick(id);
         }
       }}
