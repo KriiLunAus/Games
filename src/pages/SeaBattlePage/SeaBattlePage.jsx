@@ -10,7 +10,7 @@ export default function SeaBattlePage() {
   const [turn, setTurn] = useState('player');
   const [alreadyHit, setAlreadyHit] = useState(false);
 
-  const handleCellClick = (cellId, isEnemy) => {
+  const handlePlayerClick = (cellId, isEnemy) => {
     if (isEnemy && turn === 'player') {
       if (enemyBoardActiveCells.includes(cellId)) {
         setAlreadyHit(true);
@@ -21,14 +21,6 @@ export default function SeaBattlePage() {
       );
       setAlreadyHit(false);
       setTurn('enemy');
-    } else if (!isEnemy && turn === 'enemy') {
-      if (playerBoardActiveCells.includes(cellId)) {
-        return;
-      }
-      setPlayerBoardActiveCells(prev =>
-        prev.includes(cellId) ? prev : [...prev, cellId]
-      );
-      setTurn('player');
     }
   };
 
@@ -44,12 +36,14 @@ export default function SeaBattlePage() {
 
       function getRandomCellId() {
         let randomId;
+        console.log();
+
         do {
           randomId = Math.floor(Math.random() * 100);
         } while (playerBoardActiveCells.includes(randomId));
         return randomId;
       }
-    }, 1500);
+    }, 0);
   }, [turn, playerBoardActiveCells]);
 
   return (
@@ -82,7 +76,6 @@ export default function SeaBattlePage() {
           )}
           {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
           <Board
-            onCellClick={handleCellClick}
             activeCells={playerBoardActiveCells}
             isStartTheGame={isStartTheGame}
             isEnemy={false}
@@ -111,7 +104,7 @@ export default function SeaBattlePage() {
       {isStartTheGame && (
         <div>
           <Board
-            onCellClick={handleCellClick}
+            onCellClick={handlePlayerClick}
             activeCells={enemyBoardActiveCells}
             isStartTheGame={isStartTheGame}
             isEnemy={true}

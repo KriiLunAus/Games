@@ -16,61 +16,19 @@ export default function Board({
 
   useEffect(() => {
     if (isEnemy) {
-      setGrid(placeShips());
+      setGrid(placeShips(gridSize));
     }
   }, [isEnemy, isStartTheGame]);
 
-  const placeShips = () => {
-    const newGrid = Array.from({ length: gridSize }, () =>
-      Array(gridSize).fill(0)
-    );
-
-    ships.forEach(ship => {
-      let placed = false;
-      while (!placed) {
-        const isHorizontal = Math.random() < 0.5;
-        const x = Math.floor(Math.random() * gridSize);
-        const y = Math.floor(Math.random() * gridSize);
-        if (ship.canPlaceShip(newGrid, x, y, isHorizontal)) {
-          ship.placeShip(newGrid, x, y, isHorizontal);
-          placed = true;
-        }
-      }
-    });
-
-    return newGrid;
-  };
-
-  function renderCells() {
-    const cells = [];
-    for (let row = 0; row < gridSize; row++) {
-      for (let col = 0; col < gridSize; col++) {
-        const id = row * gridSize + col;
-        const isShipPart = grid[row][col] !== 0;
-        cells.push(
-          <Cell
-            key={id}
-            id={id}
-            onClick={cellId => {
-              onCellClick(cellId, isEnemy);
-            }}
-            isActive={activeCells.includes(id)}
-            isShipPart={isShipPart}
-            isEnemy={isEnemy}
-          />
-        );
-      }
-    }
-    return cells;
-  }
-
   return (
     <>
-      <div className={css.board}>{renderCells()}</div>
+      <div className={css.board}>
+        {renderCells(grid, gridSize, onCellClick, activeCells, isEnemy)}
+      </div>
       {!isStartTheGame && (
         <button
           onClick={() => {
-            setGrid(placeShips());
+            setGrid(placeShips(gridSize));
           }}
           className={css.placeShipsBtn}
         >
@@ -107,4 +65,49 @@ function Cell({ onClick, id, isActive, isShipPart, isEnemy }) {
       ></div>
     </div>
   );
+}
+
+function placeShips(gridSize) {
+  const newGrid = Array.from({ length: gridSize }, () =>
+    Array(gridSize).fill(0)
+  );
+
+  ships.forEach(ship => {
+    let placed = false;
+    while (!placed) {
+      const isHorizontal = Math.random() < 0.5;
+      const x = Math.floor(Math.random() * gridSize);
+      const y = Math.floor(Math.random() * gridSize);
+      if (ship.canPlaceShip(newGrid, x, y, isHorizontal)) {
+        ship.placeShip(newGrid, x, y, isHorizontal);
+        placed = true;
+      }
+    }
+  });
+
+  return newGrid;
+}
+
+function renderCells(grid, gridSize, onCellClick, activeCells, isEnemy) {
+  const cells = [];
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
+      const id = row * gridSize + col;
+      const isShipPart = grid[row][col] !== 0;
+      cells.push(
+        <Cell
+          key={id}
+          id={id}
+          onClick={cellId => {
+            onCellClick(cellId, isEnemy);
+          }}
+          isActive={activeCells.includes(id)}
+          isShipPart={isShipPart}
+          isEnemy={isEnemy}
+          gridSize={gridSize}
+        />
+      );
+    }
+  }
+  return cells;
 }
