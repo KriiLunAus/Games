@@ -43,7 +43,7 @@ export default function SeaBattlePage() {
         } while (playerBoardActiveCells.includes(randomId));
         return randomId;
       }
-    }, 0);
+    }, 1000);
   }, [turn, playerBoardActiveCells]);
 
   return (
