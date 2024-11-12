@@ -53,7 +53,7 @@ function Cell({ onClick, id, isActive, isShipPart, isEnemy }) {
         css.cell,
         !isEnemy && isActive && css.active,
         !isEnemy && isShipPart && css.playerShip,
-        isEnemy && isShipPart && isActive && css.enemyShip,
+        isEnemy && isShipPart && css.enemyShip,
         isEnemy && isActive && css.active
       )}
       id={id}

@@ -46,7 +46,7 @@ class Ship {
       grid[newX][newY] = this.shipHeight;
       cells.push(newX * grid[0].length + newY); // Convert coordinates to cell IDs
     }
-    return cells; // Return cells of this ship
+    return cells;
   }
 }
 

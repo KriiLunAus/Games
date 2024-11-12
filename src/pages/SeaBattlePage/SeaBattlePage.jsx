@@ -11,12 +11,16 @@ export default function SeaBattlePage() {
   const [isStartTheGame, setIsStartTheGame] = useState(false);
   const [turn, setTurn] = useState('player');
   const [alreadyHit, setAlreadyHit] = useState(false);
+  const [result, setResult] = useState('');
 
   const handlePlayerClick = (cellId, isEnemy) => {
     if (isEnemy && turn === 'player') {
       if (enemyBoardActiveCells.includes(cellId)) {
         setAlreadyHit(true);
         return;
+      }
+      if (checkIfAllHitted(playerBoardActiveCells, playerShipsCells)) {
+        setResult('lose');
       }
       setEnemyBoardActiveCells(prev =>
         prev.includes(cellId) ? prev : [...prev, cellId]
@@ -33,20 +37,21 @@ export default function SeaBattlePage() {
         if (!playerBoardActiveCells.includes(randomCellId)) {
           setPlayerBoardActiveCells(prev => [...prev, randomCellId]);
         }
+        if (checkIfAllHitted(enemyBoardActiveCells, enemyShipsCells)) {
+          setResult('win');
+        }
         setTurn('player');
       }
 
       function getRandomCellId() {
         let randomId;
-        console.log();
-
         do {
           randomId = Math.floor(Math.random() * 100);
         } while (playerBoardActiveCells.includes(randomId));
         return randomId;
       }
-    }, 1000);
-  }, [turn, playerBoardActiveCells]);
+    }, 0);
+  }, [turn, playerBoardActiveCells, enemyBoardActiveCells, enemyShipsCells]);
 
   return (
     <div className={css.boardsWrapper}>
@@ -119,4 +124,8 @@ export default function SeaBattlePage() {
       )}
     </div>
   );
+}
+
+function checkIfAllHitted(activeCells, shipsCells) {
+  return shipsCells.every(ship => activeCells.includes(ship));
 }
