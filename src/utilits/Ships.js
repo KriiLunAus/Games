@@ -39,11 +39,14 @@ class Ship {
   }
 
   placeShip(grid, x, y, isHorizontal) {
+    const cells = [];
     for (let i = 0; i < this.shipHeight; i++) {
       const newX = isHorizontal ? x : x + i;
       const newY = isHorizontal ? y + i : y;
       grid[newX][newY] = this.shipHeight;
+      cells.push(newX * grid[0].length + newY); // Convert coordinates to cell IDs
     }
+    return cells; // Return cells of this ship
   }
 }
 

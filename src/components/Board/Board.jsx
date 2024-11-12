@@ -8,6 +8,7 @@ export default function Board({
   activeCells,
   isStartTheGame,
   isEnemy,
+  setShipsCells,
 }) {
   const gridSize = 10;
   const [grid, setGrid] = useState(
@@ -15,10 +16,13 @@ export default function Board({
   );
 
   useEffect(() => {
+    const { newGrid, shipsCells } = placeShips(gridSize);
+
     if (isEnemy) {
-      setGrid(placeShips(gridSize));
+      setGrid(newGrid);
+      setShipsCells(shipsCells);
     }
-  }, [isEnemy, isStartTheGame]);
+  }, [isEnemy, isStartTheGame, setShipsCells]);
 
   return (
     <>
@@ -28,7 +32,10 @@ export default function Board({
       {!isStartTheGame && (
         <button
           onClick={() => {
-            setGrid(placeShips(gridSize));
+            const { newGrid, shipsCells } = placeShips(gridSize);
+
+            setGrid(newGrid);
+            setShipsCells(shipsCells);
           }}
           className={css.placeShipsBtn}
         >
@@ -71,6 +78,7 @@ function placeShips(gridSize) {
   const newGrid = Array.from({ length: gridSize }, () =>
     Array(gridSize).fill(0)
   );
+  const shipsCells = [];
 
   ships.forEach(ship => {
     let placed = false;
@@ -79,13 +87,14 @@ function placeShips(gridSize) {
       const x = Math.floor(Math.random() * gridSize);
       const y = Math.floor(Math.random() * gridSize);
       if (ship.canPlaceShip(newGrid, x, y, isHorizontal)) {
-        ship.placeShip(newGrid, x, y, isHorizontal);
+        const cells = ship.placeShip(newGrid, x, y, isHorizontal);
+        shipsCells.push(...cells);
         placed = true;
       }
     }
   });
 
-  return newGrid;
+  return { newGrid, shipsCells };
 }
 
 function renderCells(grid, gridSize, onCellClick, activeCells, isEnemy) {

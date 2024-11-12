@@ -5,6 +5,8 @@ import { messages } from '../../utilits/messages';
 export default function SeaBattlePage() {
   const [playerBoardActiveCells, setPlayerBoardActiveCells] = useState([]);
   const [enemyBoardActiveCells, setEnemyBoardActiveCells] = useState([]);
+  const [playerShipsCells, setPlayerShipsCells] = useState([]);
+  const [enemyShipsCells, setEnemyShipsCells] = useState([]);
   const [isPlaceFleet, setIsPlaceFleet] = useState(false);
   const [isStartTheGame, setIsStartTheGame] = useState(false);
   const [turn, setTurn] = useState('player');
@@ -80,6 +82,7 @@ export default function SeaBattlePage() {
             isStartTheGame={isStartTheGame}
             isEnemy={false}
             turn={turn}
+            setShipsCells={setPlayerShipsCells}
           />
           {!isStartTheGame && (
             <button
@@ -109,6 +112,7 @@ export default function SeaBattlePage() {
             isStartTheGame={isStartTheGame}
             isEnemy={true}
             turn={turn}
+            setShipsCells={setEnemyShipsCells}
           />
           <h2 className={css.playerHeader}>Enemy Board</h2>
         </div>
