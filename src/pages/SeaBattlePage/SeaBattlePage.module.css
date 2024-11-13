@@ -48,3 +48,13 @@
   color: #bdff00;
   font-size: 20px;
 }
+
+.newGameBtn {
+  width: 240px;
+  height: 70px;
+  border: none;
+  border-radius: 30px;
+  background-color: #bdff00;
+  font-size: 24px;
+  cursor: pointer;
+}

@@ -30,6 +30,15 @@ export default function SeaBattlePage() {
     }
   };
 
+  function handleNewGame() {
+    setResult('');
+    setTurn('player');
+    setIsPlaceFleet(false);
+    setIsStartTheGame(false);
+    setPlayerBoardActiveCells([]);
+    setEnemyBoardActiveCells([]);
+  }
+
   useEffect(() => {
     setTimeout(() => {
       if (turn === 'enemy') {
@@ -56,8 +65,29 @@ export default function SeaBattlePage() {
   return (
     <div className={css.boardsWrapper}>
       <h2 className={css.seaBattleHeader}>Sea Battle</h2>
+      {result !== '' && (
+        <button
+          className={css.newGameBtn}
+          onClick={() => {
+            setResult('');
+            setTurn('player');
+            setIsPlaceFleet(false);
+            setIsStartTheGame(false);
+            setPlayerBoardActiveCells([]);
+            setEnemyBoardActiveCells([]);
+          }}
+        >
+          New game
+        </button>
+      )}
+      {result === 'win' && (
+        <h3>You destroyed all enemy ships. Congratulations!!! </h3>
+      )}
+      {result === 'lose' && (
+        <h3>Enemy destroyed all your ships. Good luck next time! </h3>
+      )}
       <div>
-        {!isPlaceFleet && (
+        {!isPlaceFleet && result === '' && (
           <button
             onClick={() => {
               setIsPlaceFleet(true);
@@ -69,7 +99,7 @@ export default function SeaBattlePage() {
         )}
       </div>
 
-      {isPlaceFleet && (
+      {isPlaceFleet && result === '' && (
         <div
           style={{
             display: 'flex',
@@ -78,10 +108,12 @@ export default function SeaBattlePage() {
             alignItems: 'center',
           }}
         >
-          {!isStartTheGame && (
+          {!isStartTheGame && result === '' && (
             <h3 className={css.placeFleetHeader}>Place your fleet</h3>
           )}
-          {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
+          {isStartTheGame && result === '' && (
+            <h2 className={css.playerHeader}>Player Board</h2>
+          )}
           <Board
             activeCells={playerBoardActiveCells}
             isStartTheGame={isStartTheGame}
@@ -101,15 +133,17 @@ export default function SeaBattlePage() {
           )}
         </div>
       )}
-      {alreadyHit && <div className={css.message}>{messages.already_hit}</div>}
-      {isStartTheGame && turn === 'player' && (
+      {alreadyHit && result === '' && (
+        <div className={css.message}>{messages.already_hit}</div>
+      )}
+      {isStartTheGame && result === '' && turn === 'player' && (
         <div className={css.message}>{messages.your_turn}</div>
       )}
       {turn === 'enemy' && (
         <div className={css.message}>{messages.computer}</div>
       )}
 
-      {isStartTheGame && (
+      {isStartTheGame && result === '' && (
         <div>
           <Board
             onCellClick={handlePlayerClick}
