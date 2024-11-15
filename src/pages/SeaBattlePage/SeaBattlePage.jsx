@@ -13,55 +13,62 @@ export default function SeaBattlePage() {
   const [alreadyHit, setAlreadyHit] = useState(false);
   const [result, setResult] = useState('');
 
+  console.log(getSurroundingCells(enemyShipsCells, 10));
+
   const handlePlayerClick = (cellId, isEnemy) => {
     if (isEnemy && turn === 'player') {
       if (enemyBoardActiveCells.includes(cellId)) {
         setAlreadyHit(true);
         return;
       }
-      if (checkIfAllHitted(playerBoardActiveCells, playerShipsCells)) {
-        setResult('lose');
-      }
-      setEnemyBoardActiveCells(prev =>
-        prev.includes(cellId) ? prev : [...prev, cellId]
+
+      const newActiveCells = [...enemyBoardActiveCells, cellId];
+      setEnemyBoardActiveCells(newActiveCells);
+
+      const destroyedShips = enemyShipsCells.filter(ship =>
+        ship.every(cell => newActiveCells.includes(cell))
       );
+
+      destroyedShips.forEach(ship => {
+        const surrounding = getSurroundingCells(ship, 10);
+        setEnemyBoardActiveCells(prev => [...prev, ...surrounding]);
+      });
+
+      if (destroyedShips.length === enemyShipsCells.length) {
+        setResult('win');
+      }
+
       setAlreadyHit(false);
       setTurn('enemy');
     }
   };
 
-  function handleNewGame() {
-    setResult('');
-    setTurn('player');
-    setIsPlaceFleet(false);
-    setIsStartTheGame(false);
-    setPlayerBoardActiveCells([]);
-    setEnemyBoardActiveCells([]);
-  }
-
   useEffect(() => {
-    setTimeout(() => {
-      if (turn === 'enemy') {
-        const randomCellId = getRandomCellId();
+    if (turn === 'enemy') {
+      setTimeout(() => {
+        const randomCellId = getRandomCellId(playerBoardActiveCells);
         if (!playerBoardActiveCells.includes(randomCellId)) {
-          setPlayerBoardActiveCells(prev => [...prev, randomCellId]);
-        }
-        if (checkIfAllHitted(enemyBoardActiveCells, enemyShipsCells)) {
-          setResult('win');
-        }
-        setTurn('player');
-      }
+          const newActiveCells = [...playerBoardActiveCells, randomCellId];
+          setPlayerBoardActiveCells(newActiveCells);
 
-      function getRandomCellId() {
-        let randomId;
-        do {
-          randomId = Math.floor(Math.random() * 100);
-        } while (playerBoardActiveCells.includes(randomId));
-        return randomId;
-      }
-    }, 0);
-  }, [turn, playerBoardActiveCells, enemyBoardActiveCells, enemyShipsCells]);
+          const destroyedShips = playerShipsCells.filter(ship =>
+            ship.every(cell => newActiveCells.includes(cell))
+          );
 
+          destroyedShips.forEach(ship => {
+            const surrounding = getSurroundingCells(ship, 10);
+            setPlayerBoardActiveCells(prev => [...prev, ...surrounding]);
+          });
+
+          if (destroyedShips.length === playerShipsCells.length) {
+            setResult('lose');
+          }
+
+          setTurn('player');
+        }
+      }, 1000);
+    }
+  }, [turn, playerBoardActiveCells, playerShipsCells]);
   return (
     <div className={css.boardsWrapper}>
       <h2 className={css.seaBattleHeader}>Sea Battle</h2>
@@ -160,6 +167,39 @@ export default function SeaBattlePage() {
   );
 }
 
-function checkIfAllHitted(activeCells, shipsCells) {
-  return shipsCells.every(ship => activeCells.includes(ship));
+function getSurroundingCells(shipCells, gridSize) {
+  const surroundingCells = new Set();
+
+  shipCells.forEach(cell => {
+    const row = Math.floor(cell / gridSize);
+    const col = cell % gridSize;
+
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const newRow = row + i;
+        const newCol = col + j;
+        const newCell = newRow * gridSize + newCol;
+
+        if (
+          newRow >= 0 &&
+          newRow < gridSize &&
+          newCol >= 0 &&
+          newCol < gridSize &&
+          !shipCells.includes(newCell)
+        ) {
+          surroundingCells.add(newCell);
+        }
+      }
+    }
+  });
+
+  return Array.from(surroundingCells);
+}
+
+function getRandomCellId(playerBoardActiveCells) {
+  let randomId;
+  do {
+    randomId = Math.floor(Math.random() * 100);
+  } while (playerBoardActiveCells.includes(randomId));
+  return randomId;
 }
