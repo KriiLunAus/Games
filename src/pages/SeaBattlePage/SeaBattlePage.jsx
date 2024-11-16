@@ -12,8 +12,8 @@ export default function SeaBattlePage() {
   const [turn, setTurn] = useState('player');
   const [alreadyHit, setAlreadyHit] = useState(false);
   const [result, setResult] = useState('');
-
-  console.log(getSurroundingCells(enemyShipsCells, 10));
+  const [enemyTargetCells, setEnemyTargetCells] = useState([]);
+  const [enemyAttackDirection, setEnemyAttackDirection] = useState(null);
 
   const handlePlayerClick = (cellId, isEnemy) => {
     if (isEnemy && turn === 'player') {
@@ -30,7 +30,7 @@ export default function SeaBattlePage() {
       );
 
       destroyedShips.forEach(ship => {
-        const surrounding = getSurroundingCells(ship, 10);
+        const surrounding = getTargetedCells(ship, 10);
         setEnemyBoardActiveCells(prev => [...prev, ...surrounding]);
       });
 
@@ -42,23 +42,73 @@ export default function SeaBattlePage() {
       setTurn('enemy');
     }
   };
-
   useEffect(() => {
     if (turn === 'enemy') {
       setTimeout(() => {
-        const randomCellId = getRandomCellId(playerBoardActiveCells);
-        if (!playerBoardActiveCells.includes(randomCellId)) {
-          const newActiveCells = [...playerBoardActiveCells, randomCellId];
+        let targetCellId;
+
+        if (enemyTargetCells.length > 0) {
+          targetCellId = enemyTargetCells[0];
+          setEnemyTargetCells(prev => prev.slice(1));
+        } else {
+          targetCellId = getRandomCellId(playerBoardActiveCells);
+        }
+
+        if (!playerBoardActiveCells.includes(targetCellId)) {
+          const newActiveCells = [...playerBoardActiveCells, targetCellId];
           setPlayerBoardActiveCells(newActiveCells);
+
+          const hitShip = playerShipsCells.find(ship =>
+            ship.includes(targetCellId)
+          );
+
+          if (hitShip) {
+            const adjacentCells = getTargetedCells(
+              [targetCellId],
+              10,
+              true
+            ).filter(
+              cell =>
+                !newActiveCells.includes(cell) &&
+                !enemyTargetCells.includes(cell)
+            );
+            setEnemyTargetCells(prev => [...prev, ...adjacentCells]);
+
+            if (enemyTargetCells.length > 1 && !enemyAttackDirection) {
+              const secondHit = enemyTargetCells[0];
+
+              const isHorizontal = Math.abs(targetCellId - secondHit) === 1;
+              const isVertical = Math.abs(targetCellId - secondHit) === 10;
+
+              if (isHorizontal) {
+                setEnemyAttackDirection('horizontal');
+              } else if (isVertical) {
+                setEnemyAttackDirection('vertical');
+              }
+
+              const directionCells = getDirectionalCells(
+                targetCellId,
+                enemyAttackDirection,
+                10
+              );
+
+              setEnemyTargetCells(prev => [...prev, ...directionCells]);
+            }
+          }
 
           const destroyedShips = playerShipsCells.filter(ship =>
             ship.every(cell => newActiveCells.includes(cell))
           );
 
           destroyedShips.forEach(ship => {
-            const surrounding = getSurroundingCells(ship, 10);
+            const surrounding = getTargetedCells(ship, 10);
             setPlayerBoardActiveCells(prev => [...prev, ...surrounding]);
           });
+
+          if (destroyedShips.some(ship => ship.includes(targetCellId))) {
+            setEnemyAttackDirection(null);
+            setEnemyTargetCells([]);
+          }
 
           if (destroyedShips.length === playerShipsCells.length) {
             setResult('lose');
@@ -66,9 +116,16 @@ export default function SeaBattlePage() {
 
           setTurn('player');
         }
-      }, 1000);
+      }, 250);
     }
-  }, [turn, playerBoardActiveCells, playerShipsCells]);
+  }, [
+    turn,
+    playerBoardActiveCells,
+    playerShipsCells,
+    enemyTargetCells,
+    enemyAttackDirection,
+  ]);
+
   return (
     <div className={css.boardsWrapper}>
       <h2 className={css.seaBattleHeader}>Sea Battle</h2>
@@ -167,39 +224,80 @@ export default function SeaBattlePage() {
   );
 }
 
-function getSurroundingCells(shipCells, gridSize) {
-  const surroundingCells = new Set();
+function getTargetedCells(shipCells, gridSize, onlyCardinal = false) {
+  const directions = onlyCardinal
+    ? [
+        { row: 0, col: -1 },
+        { row: 1, col: 0 },
+        { row: -1, col: 0 },
+        { row: 0, col: 1 },
+      ]
+    : [
+        { row: -1, col: 0 },
+        { row: 1, col: 0 },
+        { row: 0, col: -1 },
+        { row: 0, col: 1 },
+        { row: -1, col: -1 },
+        { row: -1, col: 1 },
+        { row: 1, col: -1 },
+        { row: 1, col: 1 },
+      ];
 
-  shipCells.forEach(cell => {
+  return shipCells.flatMap(cell => {
     const row = Math.floor(cell / gridSize);
     const col = cell % gridSize;
 
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        const newRow = row + i;
-        const newCol = col + j;
+    return directions
+      .map(({ row: dRow, col: dCol }) => {
+        const newRow = row + dRow;
+        const newCol = col + dCol;
         const newCell = newRow * gridSize + newCol;
 
-        if (
-          newRow >= 0 &&
+        return newRow >= 0 &&
           newRow < gridSize &&
           newCol >= 0 &&
-          newCol < gridSize &&
-          !shipCells.includes(newCell)
-        ) {
-          surroundingCells.add(newCell);
-        }
-      }
-    }
+          newCol < gridSize
+          ? newCell
+          : null;
+      })
+      .filter(cell => cell !== null);
   });
-
-  return Array.from(surroundingCells);
 }
-
 function getRandomCellId(playerBoardActiveCells) {
   let randomId;
   do {
     randomId = Math.floor(Math.random() * 100);
   } while (playerBoardActiveCells.includes(randomId));
   return randomId;
+}
+
+function getDirectionalCells(startCell, direction, gridSize) {
+  const row = Math.floor(startCell / gridSize);
+  const col = startCell % gridSize;
+
+  const directions = {
+    horizontal: [
+      { row: 0, col: -1 },
+      { row: 0, col: 1 },
+    ],
+    vertical: [
+      { row: -1, col: 0 },
+      { row: 1, col: 0 },
+    ],
+  };
+
+  return directions[direction]
+    .map(({ row: dRow, col: dCol }) => {
+      const newRow = row + dRow;
+      const newCol = col + dCol;
+      const newCell = newRow * gridSize + newCol;
+
+      return newRow >= 0 &&
+        newRow < gridSize &&
+        newCol >= 0 &&
+        newCol < gridSize
+        ? newCell
+        : null;
+    })
+    .filter(cell => cell !== null);
 }
