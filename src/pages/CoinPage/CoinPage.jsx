@@ -3,6 +3,7 @@ import css from './CoinPage.module.css';
 import Total from '../../components/Total/Total.jsx';
 import heads from '../../images/svg/coinHeads.svg';
 import tails from '../../images/svg/coinTails.svg';
+import useWidth from '../../hooks/useWidth.js';
 
 export default function CoinPage() {
   const [result, setResult] = useState({
@@ -30,9 +31,11 @@ export default function CoinPage() {
     });
   }
 
+  const vw = useWidth();
+
   return (
     <section className={css.container}>
-      <h2>flip the coin</h2>
+      {vw > 1024 && <h2>flip the coin</h2>}
       <Total result={result} quantity={2} />
 
       <div id="js-result" className={css.result}>

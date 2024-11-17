@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import css from './SeaBattlePage.module.css';
 import Board from '../../components/Board/Board';
 import { messages } from '../../utilits/messages';
+import useWidth from '../../hooks/useWidth';
+
 export default function SeaBattlePage() {
   const [playerBoardActiveCells, setPlayerBoardActiveCells] = useState([]);
   const [enemyBoardActiveCells, setEnemyBoardActiveCells] = useState([]);
@@ -125,33 +127,42 @@ export default function SeaBattlePage() {
     enemyTargetCells,
     enemyAttackDirection,
   ]);
+  const vw = useWidth();
 
   return (
     <div className={css.boardsWrapper}>
-      <h2 className={css.seaBattleHeader}>Sea Battle</h2>
+      {vw > 1024 && <h2 className={css.seaBattleHeader}>Sea Battle</h2>}
       {result !== '' && (
-        <button
-          className={css.newGameBtn}
-          onClick={() => {
-            setResult('');
-            setTurn('player');
-            setIsPlaceFleet(false);
-            setIsStartTheGame(false);
-            setPlayerBoardActiveCells([]);
-            setEnemyBoardActiveCells([]);
-          }}
-        >
-          New game
-        </button>
+        <div className={css.newGameSetup}>
+          {result !== '' && (
+            <button
+              className={css.newGameBtn}
+              onClick={() => {
+                setResult('');
+                setTurn('player');
+                setIsPlaceFleet(false);
+                setIsStartTheGame(false);
+                setPlayerBoardActiveCells([]);
+                setEnemyBoardActiveCells([]);
+              }}
+            >
+              New game
+            </button>
+          )}
+          {result === 'win' && (
+            <h3 className={css.result}>
+              You destroyed all enemy ships. Congratulations!!!{' '}
+            </h3>
+          )}
+          {result === 'lose' && (
+            <h3 className={css.result}>
+              Enemy destroyed all your ships. Good luck next time!{' '}
+            </h3>
+          )}
+        </div>
       )}
-      {result === 'win' && (
-        <h3>You destroyed all enemy ships. Congratulations!!! </h3>
-      )}
-      {result === 'lose' && (
-        <h3>Enemy destroyed all your ships. Good luck next time! </h3>
-      )}
-      <div>
-        {!isPlaceFleet && result === '' && (
+      {!isPlaceFleet && result === '' && (
+        <div>
           <button
             onClick={() => {
               setIsPlaceFleet(true);
@@ -160,24 +171,15 @@ export default function SeaBattlePage() {
           >
             Place Fleet
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {isPlaceFleet && result === '' && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {!isStartTheGame && result === '' && (
+      {isPlaceFleet && (
+        <div className={css.playerBoardWrapper}>
+          {!isStartTheGame && (
             <h3 className={css.placeFleetHeader}>Place your fleet</h3>
           )}
-          {isStartTheGame && result === '' && (
-            <h2 className={css.playerHeader}>Player Board</h2>
-          )}
+          {isStartTheGame && <h2 className={css.playerHeader}>Player Board</h2>}
           <Board
             activeCells={playerBoardActiveCells}
             isStartTheGame={isStartTheGame}
@@ -197,17 +199,15 @@ export default function SeaBattlePage() {
           )}
         </div>
       )}
-      {alreadyHit && result === '' && (
-        <div className={css.message}>{messages.already_hit}</div>
-      )}
-      {isStartTheGame && result === '' && turn === 'player' && (
+      {alreadyHit && <div className={css.message}>{messages.already_hit}</div>}
+      {isStartTheGame && turn === 'player' && (
         <div className={css.message}>{messages.your_turn}</div>
       )}
       {turn === 'enemy' && (
         <div className={css.message}>{messages.computer}</div>
       )}
 
-      {isStartTheGame && result === '' && (
+      {isStartTheGame && (
         <div>
           <Board
             onCellClick={handlePlayerClick}

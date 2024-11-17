@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import useWidth from '../../hooks/useWidth';
 import MobileMenu from '../MobileMenu/MobileMenu.jsx';
@@ -14,11 +14,15 @@ export default function HeaderComponent({ onLogOut }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const vw = useWidth();
+  const location = useLocation();
   return (
     <>
       <div className={css.container}>
         {vw < 1024 && (
           <header className={css.headerMobile}>
+            <h3 className={css.gameHeader}>
+              {getGameHeader(location.pathname)}
+            </h3>
             <button
               onClick={() => {
                 setIsOpen(true);
@@ -58,3 +62,23 @@ export default function HeaderComponent({ onLogOut }) {
     </>
   );
 }
+
+function getGameHeader() {
+  const pathname = window.location.pathname.slice(1);
+  switch (pathname) {
+    case 'coinGame':
+      return 'Toss A Coin';
+
+    case 'rockParerScisors':
+      return 'じゃんけん';
+
+    case 'seaBattle':
+      return 'Sea Battle';
+
+    default:
+      '';
+      break;
+  }
+}
+
+console.log(getGameHeader());

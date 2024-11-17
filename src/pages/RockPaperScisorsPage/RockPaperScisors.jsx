@@ -4,6 +4,7 @@ import Total from '../../components/Total/Total.jsx';
 import playGame from './rockPaperScisors.js';
 
 import GameResult from '../../components/GameResult/GameResult.jsx';
+import useWidth from '../../hooks/useWidth.js';
 
 export default function RockPaperScisorsPage() {
   const [result, setResult] = useState({
@@ -18,10 +19,10 @@ export default function RockPaperScisorsPage() {
     },
     winner: '',
   });
-
+  const vw = useWidth();
   return (
     <section className={css.container}>
-      <h2>Rock Paper Scisors</h2>
+      {vw > 1024 && <h2>Rock Paper Scissors</h2>}
 
       <Total result={result} quantity={3} />
       <GameResult result={result} />
@@ -32,7 +33,7 @@ export default function RockPaperScisorsPage() {
               playGame('rock', setResult);
             }}
           >
-            Rock
+            グー
           </button>
         </li>
         <li>
@@ -41,7 +42,7 @@ export default function RockPaperScisorsPage() {
               playGame('paper', setResult);
             }}
           >
-            Paper
+            パー
           </button>
         </li>
         <li>
@@ -50,7 +51,7 @@ export default function RockPaperScisorsPage() {
               playGame('scissors', setResult);
             }}
           >
-            Scisors
+            チョキ
           </button>
         </li>
       </ul>
