@@ -17,10 +17,6 @@ const games = {
     path: '/seaBattle',
     link: board,
   },
-  cardGame: {
-    path: '/cardGame',
-    link: 'https://images.pexels.com/photos/26665694/pexels-photo-26665694/free-photo-of-gatos-de-acumuladora-de-animais-no-brasil.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  },
 };
 
 export default function GameList() {
@@ -30,7 +26,6 @@ export default function GameList() {
         <GameComponent {...games.flipTheCoin} />
         <GameComponent {...games.rockPaperScisors} />
         <GameComponent {...games.seaBattle} />
-        <GameComponent {...games.cardGame} />
       </ul>
     </section>
   );
