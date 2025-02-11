@@ -118,7 +118,7 @@ export default function SeaBattlePage() {
 
           setTurn('player');
         }
-      }, 250);
+      }, 1000);
     }
   }, [
     turn,
